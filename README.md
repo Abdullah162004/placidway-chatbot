@@ -28,7 +28,7 @@ A chatbot that answers visitor questions using **only** the seven PlacidWay page
             1 req/s       table rows       with page + heading
 
  question ──▶ search.ts ────────────────────────▶ answer.ts ───────────────────────────▶ chat UI
-              BM25 + vector similarity,            one Gemini call, JSON schema output     answer + sources
+              BM25 + vector similarity,            one LLM call (free model chain), JSON     answer + sources
               fused with Reciprocal Rank Fusion    citation + price verification guards    disclaimer, quote form
 ```
 
@@ -36,8 +36,10 @@ A chatbot that answers visitor questions using **only** the seven PlacidWay page
 |---|---|
 | `src/config.ts` | Source URLs, crawl policy, retrieval and chunking parameters, environment access |
 | `src/lib/crawl.ts` | robots.txt check, polite fetching with retries |
-| `src/lib/extract.ts` | HTML to sections; keeps tables as `cell \| cell` rows; drops site chrome and repeated lines |
+| `src/lib/extract.ts` | HTML to sections; keeps each table row on one line; drops site chrome and repeated lines |
 | `src/lib/kb.ts` | Chunking, (de)serialisation, loading the knowledge base from Redis or the bundled file |
+| `src/lib/gemini.ts` | Gemini client and batched, quota-aware embeddings |
+| `src/lib/llm.ts` | Free model fallback chain (Groq, then Gemini) with output validation |
 | `src/lib/search.ts` | Hybrid retrieval: BM25 keyword scores + embedding similarity, Reciprocal Rank Fusion |
 | `src/lib/answer.ts` | Prompt, structured output schema, grounding guards, fallbacks, logging |
 | `src/lib/store.ts` | Upstash Redis: unanswered-question log, leads, rate limiting (all optional) |
