@@ -2,7 +2,7 @@
 
 A chatbot that answers visitor questions using **only** the seven PlacidWay pages provided for the assessment, cites the page every answer came from, and says so honestly when the answer is not there.
 
-**Live demo:** _added after deployment_
+**Live demo:** https://placidway-chatbot.vercel.app
 
 ## What it does
 

@@ -94,7 +94,9 @@ export function Chat() {
   const shownDisclaimer = useRef(false);
   const end = useRef<HTMLDivElement>(null);
 
-  useEffect(() => end.current?.scrollIntoView({ behavior: 'smooth' }), [messages, busy]);
+  useEffect(() => {
+    end.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [messages, busy]);
 
   async function send(text: string) {
     const message = text.trim();
